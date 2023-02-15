@@ -36,3 +36,7 @@ To provide a starter pack for implementation of the followings in Nestjs
 
 - Coverage: `yarn test:cov`
 - Test: `yarn test`
+
+## Create new migration scripts
+
+- Run `typeorm migration:create ./src/migrations/{file-name}.ts`
