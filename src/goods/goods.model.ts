@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
 import { BaseModel } from 'src/common/base.model';
 
 @ObjectType()
@@ -9,9 +9,9 @@ export class GoodsModel extends BaseModel {
   @Field()
   description: string;
 
-  @Field()
+  @Field(() => Int)
   quantity: number;
 
-  @Field()
+  @Field(() => Float)
   price: number;
 }

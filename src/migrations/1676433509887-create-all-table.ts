@@ -31,6 +31,24 @@ export class createAllTable1676433509887 implements MigrationInterface {
     // Table with no FK
     await queryRunner.createTable(
       new Table({
+        name: 'Warehouses',
+        columns: [
+          {
+            name: 'name',
+            type: 'varchar',
+          },
+          {
+            name: 'location',
+            type: 'varchar',
+          },
+          ...commonFields,
+        ],
+      }),
+      true,
+    );
+
+    await queryRunner.createTable(
+      new Table({
         name: 'Goods',
         columns: [
           {
@@ -48,27 +66,22 @@ export class createAllTable1676433509887 implements MigrationInterface {
           },
           {
             name: 'price',
-            type: 'decimal',
+            type: 'numeric',
+          },
+          {
+            name: 'warehouseId',
+            type: 'integer',
           },
           ...commonFields,
         ],
-      }),
-      true,
-    );
-
-    await queryRunner.createTable(
-      new Table({
-        name: 'Warehouses',
-        columns: [
+        foreignKeys: [
           {
-            name: 'name',
-            type: 'varchar',
+            columnNames: ['warehouseId'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'Warehouses',
+            onDelete: 'NO ACTION',
+            onUpdate: 'NO ACTION',
           },
-          {
-            name: 'location',
-            type: 'varchar',
-          },
-          ...commonFields,
         ],
       }),
       true,

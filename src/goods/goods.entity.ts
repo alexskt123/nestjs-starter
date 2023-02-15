@@ -1,5 +1,6 @@
 import { BaseEntity } from 'src/common/base.entity';
-import { Column, Entity } from 'typeorm';
+import { WarehousesEntity } from 'src/warehouses/warehouses.entity';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity('Goods')
 export class GoodsEntity extends BaseEntity {
@@ -12,6 +13,13 @@ export class GoodsEntity extends BaseEntity {
   @Column()
   quantity: number;
 
-  @Column()
+  @Column({ type: 'decimal' })
   price: number;
+
+  @Column()
+  warehouseId: number;
+
+  @ManyToOne(() => WarehousesEntity)
+  @JoinColumn({ name: 'warehouseId', referencedColumnName: 'id' })
+  warehouse: WarehousesEntity;
 }

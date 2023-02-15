@@ -7,10 +7,22 @@ import { GoodsEntity } from './goods.entity';
 export class GoodsService {
   constructor(
     @InjectRepository(GoodsEntity)
-    private readonly GoodsEntityRepository: Repository<GoodsEntity>,
+    private readonly goodsEntityRepository: Repository<GoodsEntity>,
   ) {}
 
   public async findAll(): Promise<GoodsEntity[]> {
-    return this.GoodsEntityRepository.find();
+    return this.goodsEntityRepository.find();
+  }
+
+  public async findByWarehouseIdAndGoodsName(
+    id: number,
+    name: string | undefined,
+  ): Promise<GoodsEntity[]> {
+    return this.goodsEntityRepository.find({
+      where: {
+        name,
+        warehouseId: id,
+      },
+    });
   }
 }
