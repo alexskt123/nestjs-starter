@@ -1,0 +1,50 @@
+version: '1.0'
+
+services:
+  nestjs-starter-service:
+    container_name: nestjs-starter.service
+    build:
+      context: .
+      dockerfile: ./docker/dev.dockerfile
+    working_dir: /usr/app
+    volumes:
+      - ./src:/usr/app/src
+      - ./test:/usr/app/test
+      - ./.env:/usr/app/.env
+      - ./.eslintrc.yaml:/usr/app/.eslintrc.yaml
+      - ./.prettierignore:/usr/app/.prettierignore
+      - ./.prettierrc.yaml:/usr/app/.prettierrc.yaml
+      - ./nest-cli.json:/usr/app/nest-cli.json
+      - ./package.json:/usr/app/package.json
+      - ./tsconfig.build.json:/usr/app/tsconfig.build.json
+      - ./tsconfig.json:/usr/app/tsconfig.json
+      - ./yarn.lock:/usr/app/yarn.lock
+    ports:
+      - '5555:3000'
+  nestjs-starter-db:
+    container_name: nestjs-starter.db
+    image: postgres:13.5-alpine
+    environment:
+      POSTGRES_DB: "${DB_NAME}"
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./docker/create-schema.sql:/docker-entrypoint-initdb.d/create-schema.sql
+
+  nestjs-starter-pgadmin:
+    container_name: nestjs-starter.pgadmin
+    image: dpage/pgadmin4:6.2
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@nestjs.starter.dev
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      - nestjs-starter-db
+    ports:
+      - 5556:80
+    volumes:
+      - ./docker/pgadmin4/servers.json:/pgadmin4/servers.json
+volumes:
+  db:
+    driver: local
