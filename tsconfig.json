@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "es2017",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    /* Modules */
+    "baseUrl": "./",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    /* JavaScript Support */
+    "allowJs": false,
+    /* Emit */
+    "declaration": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "sourceMap": true,
+    /* Interop Constraints */
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    /* Type Checking */
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    /**/
+    "skipLibCheck": true,
+    "incremental": true,
+  },
+  "include": ["src/**/*"]
+}
