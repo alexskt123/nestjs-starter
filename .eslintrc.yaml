@@ -1,0 +1,24 @@
+  parser: '@typescript-eslint/parser'
+  parserOptions:
+    project: tsconfig.json
+    es6: true
+    sourceType: module
+  extends:
+    - 'airbnb-base'
+    - 'airbnb-typescript/base'
+    - 'plugin:prettier/recommended'
+    - 'plugin:@typescript-eslint/recommended'
+  plugins:
+    - 'unused-imports'
+    - '@typescript-eslint/eslint-plugin'
+  root: true
+  env:
+    node: true
+    jest: true
+  ignorePatterns: ['src/migrations/*.ts']
+  rules:
+    '@typescript-eslint/interface-name-prefix': off
+    '@typescript-eslint/explicit-function-return-type': off
+    '@typescript-eslint/explicit-module-boundary-types': off
+    unused-imports/no-unused-imports: error
+    import/prefer-default-export: "off"
