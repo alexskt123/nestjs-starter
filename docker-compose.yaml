@@ -21,6 +21,9 @@ services:
       - ./yarn.lock:/usr/app/yarn.lock
     ports:
       - '5555:3000'
+    depends_on:
+      - nestjs-starter-db
+      - nestjs-starter-kafka
   nestjs-starter-db:
     container_name: nestjs-starter.db
     image: postgres:13.5-alpine
@@ -74,13 +77,13 @@ services:
     ports:
       - '9091:9091'
     environment:
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://nestjs-starter.kafka:9091
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://nestjs-starter-kafka:9091
       - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9091
-      - KAFKA_ZOOKEEPER_CONNECT=nestjs-starter.zookeeper:2181
+      - KAFKA_ZOOKEEPER_CONNECT=nestjs-starter-zookeeper:2181
       - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
       - KAFKA_BROKER_ID=1
-      - BOOTSTRAP_SERVERS=nestjs-starter.kafka:9091
-      - ZOOKEEPER=nestjs-starter.zookeeper:2181
+      - BOOTSTRAP_SERVERS=nestjs-starter-kafka:9091
+      - ZOOKEEPER=nestjs-starter-zookeeper:2181
   nestjs-starter-kafka-ui:
     container_name: nestjs-starter.kafka-ui
     image: provectuslabs/kafka-ui:latest
@@ -91,7 +94,7 @@ services:
     environment:
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
       KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: nestjs-starter.kafka:9091
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: nestjs-starter-kafka:9091
 volumes:
   db:
     driver: local

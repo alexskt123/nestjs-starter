@@ -8,6 +8,8 @@ import * as path from 'path';
 import commonConfig from 'src/common/common.config';
 import { DatabaseModule } from 'src/database/database.module';
 import Joi from 'joi';
+import { KafkaModule } from 'src/kafka/kafka.module';
+import kafkaConfig from 'src/kafka/kafka.config';
 
 @Global()
 @Module({
@@ -17,12 +19,13 @@ import Joi from 'joi';
     }),
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [commonConfig],
+      load: [commonConfig, kafkaConfig],
       expandVariables: true,
       validationSchema: Joi.object({
         IS_LOCAL: Joi.boolean(),
         PORT: Joi.number().required(),
         SEED: Joi.boolean().optional(),
+        KAFKA_BROKER_URL: Joi.string().required(),
       }),
     }),
     DatabaseModule,
@@ -34,6 +37,7 @@ import Joi from 'joi';
         dateScalarMode: 'isoDate',
       },
     }),
+    KafkaModule,
   ],
 })
 export class CommonModule {}
