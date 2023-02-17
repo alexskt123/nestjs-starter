@@ -49,6 +49,24 @@ export class createAllTable1676433509887 implements MigrationInterface {
 
     await queryRunner.createTable(
       new Table({
+        name: 'Countries',
+        columns: [
+          {
+            name: 'name',
+            type: 'varchar',
+          },
+          {
+            name: 'code',
+            type: 'varchar',
+          },
+          ...commonFields,
+        ],
+      }),
+      true,
+    );
+
+    await queryRunner.createTable(
+      new Table({
         name: 'Goods',
         columns: [
           {
