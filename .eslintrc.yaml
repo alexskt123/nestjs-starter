@@ -22,3 +22,4 @@
     '@typescript-eslint/explicit-module-boundary-types': off
     unused-imports/no-unused-imports: error
     import/prefer-default-export: "off"
+    max-classes-per-file: "off"
